@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chirag Sharma — AI/ML Engineer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,300;1,9..144,500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    [data-theme="dark"] {
+      --bg: #0e1209;
+      --surface: #151d0f;
+      --surface2: #1b2614;
+      --border: #243019;
+      --accent: #7ec96a;
+      --accent2: #b0d97f;
+      --accent3: #c9a84c;
+      --text: #eae5d8;
+      --muted: #546447;
+      --muted2: #8a9f79;
+      --nav-bg: rgba(14, 18, 9, 0.85);
+    }
+
+    [data-theme="light"] {
+      --bg: #f4efe6;
+      --surface: #ece7db;
+      --surface2: #e2dcd0;
+      --border: #c5bca8;
+      --accent: #3a7d2c;
+      --accent2: #5fa64a;
+      --accent3: #9a6c1a;
+      --text: #1c2416;
+      --muted: #6b7a5a;
+      --muted2: #4e5e3e;
+      --nav-bg: rgba(244, 239, 230, 0.88);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 110%; /* Mobile ~17.6px */
+    }
+
+    @media (min-width: 768px) {
+      html {
+        font-size: 135%; /* Tablet ~21.6px */
+      }
+    }
+
+    @media (min-width: 1200px) {
+      html {
+        font-size: 155%; /* Desktop ~24.8px */
+      }
+    }
+
+    @media (min-width: 1600px) {
+      html {
+        font-size: 175%; /* Large Screen ~28px */
+      }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+      transition: background .4s, color .4s;
+    }
+
+    /* CURSOR */
+    #cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      will-change: left, top;
+    }
+
+    #cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      opacity: .4;
+      will-change: left, top;
+    }
+
+    /* NOISE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 800;
+      opacity: .45;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background .4s, border-color .4s;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 4px;
+      transition: color .2s, background .2s;
+      cursor: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      background: rgba(126, 201, 106, .08);
+    }
+
+    [data-theme="light"] .nav-links a:hover,
+    [data-theme="light"] .nav-links a.active {
+      background: rgba(58, 125, 44, .1);
+    }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+      width: 46px;
+      height: 26px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      position: relative;
+      cursor: none;
+      transition: background .3s, border-color .3s;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    [data-theme="light"] .theme-toggle::before {
+      transform: translateX(20px);
+    }
+
+    .tog-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .tog-moon {
+      left: 5px;
+    }
+
+    .tog-sun {
+      right: 5px;
+    }
+
+    /* PAGES */
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding-top: 80px;
+      animation: fadeUp .45s ease both;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* HOME */
+    .home-hero {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 0 auto;
+      padding: 60px 100px 80px;
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -300px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(126, 201, 106, .07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    [data-theme="light"] .home-hero::before {
+      background: radial-gradient(circle, rgba(58, 125, 44, .06) 0%, transparent 65%);
+    }
+
+    .hero-eyebrow {
+      font-size: .66rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: clamp(3.2rem, 10vw, 12rem);
+      line-height: .93;
+      letter-spacing: -.025em;
+      margin-bottom: 18px;
+    }
+
+    .hero-name .outline {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--muted);
+    }
+
+    [data-theme="light"] .hero-name .outline {
+      -webkit-text-stroke: 1px var(--border);
+    }
+
+    .hero-title {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--muted2);
+      margin-bottom: 26px;
+    }
+
+    .hero-summary {
+      font-size: 1.2rem;
+      line-height: 1.95;
+      color: var(--muted2);
+      max-width: 100rem;
+      margin-bottom: 40px;
+    }
+
+    .hero-chips {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-bottom: 38px;
+    }
+
+    .hero-chip {
+      font-size: .88rem;
+      letter-spacing: .07em;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      background: var(--surface);
+      transition: border-color .2s, color .2s;
+      cursor: default;
+    }
+
+    .hero-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'DM Mono', monospace;
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 12px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: none;
+      border: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(126, 201, 106, .22);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 12px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: none;
+      border: 1px solid var(--border);
+      transition: border-color .2s, color .2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 18.75rem 1fr; /* 300px */
+      gap: 60px;
+      padding: 80px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .avatar-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-initials {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 5.5rem;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      user-select: none;
+    }
+
+    .avatar-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(150deg, rgba(126, 201, 106, .05), rgba(201, 168, 76, .07));
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: .95rem;
+      color: var(--muted2);
+    }
+
+    .contact-row svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-row a {
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .contact-row a:hover {
+      color: var(--accent);
+    }
+
+    .about-content {
+      padding-top: 6px;
+    }
+
+    .section-eyebrow {
+      font-size: .82rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 2.3rem;
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+
+    .about-bio {
+      font-size: .95rem;
+      line-height: 2;
+      color: var(--muted2);
+      margin-bottom: 38px;
+    }
+
+    .about-bio p {
+      margin-bottom: 13px;
+    }
+
+    .about-bio strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 100px 1px 1fr;
+      gap: 0 20px;
+    }
+
+    .tl-date {
+      font-size: .75rem;
+      color: var(--muted);
+      letter-spacing: .03em;
+      padding-top: 5px;
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .tl-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tl-dot {
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+      background: var(--bg);
+    }
+
+    .tl-connector {
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+      min-height: 36px;
+    }
+
+    .timeline-item:last-child .tl-connector {
+      display: none;
+    }
+
+    .tl-content {
+      padding-bottom: 28px;
+    }
+
+    .tl-role {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: .99rem;
+      margin-bottom: 2px;
+    }
+
+    .tl-org {
+      font-size: .8rem;
+      color: var(--accent);
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+    }
+
+    .tl-desc {
+      font-size: .9rem;
+      color: var(--muted2);
+      line-height: 1.8;
+    }
+
+    /* SKILLS */
+    .skills-wrap {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 80px;
+    }
+
+    .skills-intro {
+      margin-bottom: 52px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 52px;
+    }
+
+    .skill-group:last-child {
+      grid-column: 2;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 24px;
+      transition: border-color .3s, transform .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-group:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .skill-group::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s;
+    }
+
+    .skill-group:hover::after {
+      transform: scaleX(1);
+    }
+
+    .skill-group-icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .skill-group-title {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: .98rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .skill-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: .84rem;
+      color: var(--muted2);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+
+    .skill-tag:hover {
+      background: rgba(126, 201, 106, .1);
+      color: var(--accent);
+      border-color: rgba(126, 201, 106, .3);
+    }
+
+    [data-theme="light"] .skill-tag:hover {
+      background: rgba(58, 125, 44, .08);
+      border-color: rgba(58, 125, 44, .3);
+    }
+
+    /* ORBIT */
+    .skills-orbit {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0;
+    }
+
+    .orbit-container {
+      position: relative;
+      width: 340px;
+      height: 340px;
+    }
+
+    .orbit-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 76px;
+      height: 76px;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: .6rem;
+      color: var(--accent);
+      letter-spacing: .04em;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px dashed;
+    }
+
+    .ring1 {
+      width: 160px;
+      height: 160px;
+      border-color: rgba(126, 201, 106, .18);
+      animation: spin 18s linear infinite;
+    }
+
+    .ring2 {
+      width: 260px;
+      height: 260px;
+      border-color: rgba(176, 217, 127, .12);
+      animation: spin 28s linear infinite reverse;
+    }
+
+    .ring3 {
+      width: 340px;
+      height: 340px;
+      border-color: rgba(201, 168, 76, .09);
+      animation: spin 42s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .orbit-dot {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .49rem;
+      color: var(--muted2);
+      text-align: center;
+      line-height: 1.3;
+      transition: border-color .2s, color .2s;
+    }
+
+    .orbit-dot:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* PROJECTS */
+    .projects-wrap {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 80px;
+    }
+
+    .projects-intro {
+      margin-bottom: 52px;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      overflow: hidden;
+      transition: border-color .3s;
+      cursor: none;
+    }
+
+    .project-card:hover {
+      border-color: var(--muted2);
+    }
+
+    .project-card.open {
+      border-color: var(--accent);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px;
+      cursor: none;
+    }
+
+    .project-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .project-num {
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .1em;
+      min-width: 26px;
+    }
+
+    .project-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.58rem;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: .9rem;
+      letter-spacing: .07em;
+      padding: 3px 9px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      background: rgba(126, 201, 106, .08);
+      color: var(--accent);
+      border: 1px solid rgba(126, 201, 106, .22);
+    }
+
+    [data-theme="light"] .project-tag {
+      background: rgba(58, 125, 44, .07);
+      border-color: rgba(58, 125, 44, .22);
+    }
+
+    .project-tag.sage {
+      background: rgba(176, 217, 127, .07);
+      color: var(--accent2);
+      border-color: rgba(176, 217, 127, .2);
+    }
+
+    .project-tag.amber {
+      background: rgba(201, 168, 76, .08);
+      color: var(--accent3);
+      border-color: rgba(201, 168, 76, .22);
+    }
+
+    .project-toggle {
+      width: 29px;
+      height: 29px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-left: 14px;
+      transition: border-color .2s, color .2s, transform .3s;
+    }
+
+    .project-card.open .project-toggle {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .project-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .project-card.open .project-body {
+      max-height: 1400px;
+    }
+
+    .project-body-inner {
+      border-top: 1px solid var(--border);
+      padding: 30px 28px 30px 70px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .project-section-title {
+      font-size: .81rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 11px;
+    }
+
+    .project-desc {
+      font-size: .88rem;
+      line-height: 1.9;
+      color: var(--muted2);
+    }
+
+    .project-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .project-bullets li {
+      font-size: .85rem;
+      color: var(--muted2);
+      line-height: 1.7;
+      display: flex;
+      gap: 8px;
+    }
+
+    .project-bullets li::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .project-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      grid-column: span 2;
+    }
+
+    .metric-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 14px 17px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .metric-val {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .metric-lbl {
+      font-size: .81rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .project-tech-stack {
+      grid-column: span 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tech-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: .87rem;
+      color: var(--muted2);
+      transition: border-color .2s, color .2s;
+    }
+
+    .tech-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .foot-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .foot-copy {
+      font-size: .84rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      nav {
+        padding: 14px 20px;
+      }
+
+      .home-hero {
+        padding: 40px 28px 60px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        padding: 40px 24px;
+      }
+
+      .skills-wrap,
+      .projects-wrap {
+        padding: 40px 24px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .skill-group:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc(50% - 9px);
+      }
+
+      .project-body-inner {
+        grid-template-columns: 1fr;
+        padding: 22px;
+      }
+
+      .project-metrics,
+      .project-tech-stack {
+        grid-column: span 1;
+      }
+
+      footer {
+        padding: 22px;
+        flex-direction: column;
+        gap: 7px;
+        text-align: center;
+      }
+    }
+
+    @media(max-width:600px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-group:last-child {
+        grid-column: auto;
+        justify-self: stretch;
+        width: auto;
+      }
+
+      .nav-links a {
+        padding: 6px 8px;
+        font-size: .82rem;
+      }
+
+      .project-tags {
+        display: none;
+      }
+
+      .plain_text {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <div class="nav-left">
+      <a href="#" class="nav-logo" onclick="showPage('home');return false;">CS<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showPage('home');return false;" id="nav-home" class="active">Home</a></li>
+        <li><a href="#" onclick="showPage('about');return false;" id="nav-about">About</a></li>
+        <li><a href="#" onclick="showPage('skills');return false;" id="nav-skills">Skills</a></li>
+        <li><a href="#" onclick="showPage('projects');return false;" id="nav-projects">Projects</a></li>
+      </ul>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" onclick="toggleTheme()">
+      <span class="tog-icon tog-moon">🌙</span>
+      <span class="tog-icon tog-sun">☀️</span>
+    </button>
+  </nav>
+
+  <!-- HOME -->
+  <section class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="hero-eyebrow">Looking for opportunities in Data Science and AI/ML</div>
+      <h1 class="hero-name">Chirag<br><span class="hero-name">Sharma</span></h1>
+      <div class="hero-title">Physics postgraduate research -> Data Science & AI/ML</div>
+      <p class="hero-summary">
+        PG Diploma in Artificial Intelligence from CDAC ACTS Pune and a BS-MS in Physics from IISER Bhopal.
+        I am a researcher at heart and I like building intelligent systems.
+        Learning to use AI for real-world applications and solutions with a focus on data-driven decision making.
+        Passionate about turning data and research into measurable product improvements.
+      </p>
+      <div class="hero-chips">
+        <span class="hero-chip">ML · DL</span>
+        <span class="hero-chip">Data Analysis</span>
+        <span class="hero-chip">LLM Agents</span>
+        <span class="hero-chip">RAG Systems</span>
+        <span class="hero-chip">Time-Series</span>
+        <span class="hero-chip">NLP · CV</span>
+        <!-- <span class="hero-chip">Pune, India</span> -->
+      </div>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary" onclick="showPage('projects');return false;">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          View Projects
+        </a>
+        <a href="#" class="btn-ghost" onclick="showPage('about');return false;">About Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="page" id="page-about">
+    <div class="about-grid">
+      <div>
+        <div class="avatar-box">
+          <img src="./resources/pfp.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="contact-card">
+          <div class="contact-row">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path
+                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+            +91 9079882590
+          </div>
+          <div class="contact-row">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <a href="mailto:chirags439@gmail.com">chirags439@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            <a href="https://www.linkedin.com/in/chirag-sharma-b9a3b2122/" target="_blank">LinkedIn</a>
+          </div>
+          <div class="contact-row">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            <a href="https://github.com/carma439" target="_blank">GitHub</a>
+          </div>
+          <div class="contact-row">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.5H8V12zm0 3h8v1.5H8V15zm0-6h5v1.5H8V9z" />
+            </svg>
+            <a href="https://drive.google.com/file/d/1NI6KswH7sCwqooRxbemUPyVel19bBFxa/view?usp=sharing"
+              target="_blank">Resume</a>
+          </div>
+          <div class="contact-row">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            Pune, Maharashtra
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-eyebrow">About Me</div>
+        <h2 class="section-title">From Physics to Data Science: Solving Real-World Problems with Data</h2>
+        <div class="about-bio">
+          <p>Hello! I'm Chirag Sharma — an early career Data Scientist and AI/ML Engineer.
+            I obtained a BS-MS in Physics at <strong>IISER Bhopal</strong>, where I gained an analytic and research
+            mindset to work out complex problems.
+            I worked in the field of cosmology for my master's thesis and then, in Astronomy as a Project Associate at
+            Ahmedabad University in collaboration with SAC, ISRO.
+          </p>
+          <p> Repeated exposure to computational projects and the desire to work on more applied problems led me to
+            pursue a PG Diploma in AI at <strong>CDAC ACTS Pune</strong>.
+            Since then, I have been working on AI/ML projects in varied domains, including time-series anomaly detection
+            for maritime sensor data and LLM-powered agentic RAG application for financial queries.</p>
+          <p>I'm most interested in the real-world applications of AI/ML along with data analysis for data-driven
+            decision making.</p>
+        </div>
+        <div class="section-eyebrow">Timeline</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tl-date">Mar 2026</div>
+            <div class="tl-line">
+              <div class="tl-dot"></div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-role">Finsense — Agentic RAG Financial Assistant</div>
+              <div class="tl-org">Personal Project · Deployed on Streamlit</div>
+              <div class="tl-desc">End-to-end agentic AI for financial policy Q&A and live tax calculations. LangChain +
+                FastAPI + Playwright.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-date">Dec 2025 – Jan 2026</div>
+            <div class="tl-line">
+              <div class="tl-dot"></div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-role">Anomaly Detection Pipeline</div>
+              <div class="tl-org">Seaker Systems Pvt. Ltd. · PG-DAI Project</div>
+              <div class="tl-desc">Unsupervised anomaly detection over maritime sensor data (250K × 90 features).
+                Benchmarked IF, LSTM, and Transformer Autoencoder.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-date">Aug 2025 – Feb 2026</div>
+            <div class="tl-line">
+              <div class="tl-dot"></div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-role">PG Diploma in Artificial Intelligence</div>
+              <div class="tl-org">CDAC ACTS Pune · 93% · AIR 1</div>
+              <div class="tl-desc">Intensive course with theory and lab sessions on Data Analysis, Machine Learning,
+                Deep Learning, NLP, Computer Vision, and AI Platforms \& Trends.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-date">Oct 2024 – Jun 2025</div>
+            <div class="tl-line">
+              <div class="tl-dot"></div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-role">Project Associate</div>
+              <div class="tl-org">Ahmedabad University & SAC, ISRO</div>
+              <div class="tl-desc">Comparative analysis of astronomical filament detection algorithms. Presented at
+                SAMHITA-2025 at SAC, ISRO.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-date">Aug 2019 – May 2024</div>
+            <div class="tl-line">
+              <div class="tl-dot"></div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-content">
+              <div class="tl-role">BS-MS in Physics</div>
+              <div class="tl-org">IISER Bhopal · CGPA 7.95</div>
+              <div class="tl-desc">Five-year integrated program. Thesis: Understanding Physics of the Early Universe
+                using Boltzmann Equations.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="page" id="page-skills">
+    <div class="skills-wrap">
+      <div class="skills-intro">
+        <div class="section-eyebrow">Skills & Tools</div>
+        <h2 class="section-title">Technologies I work with</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group"><span class="skill-group-icon">💻</span>
+          <div class="skill-group-title">Programming</div>
+          <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span
+              class="skill-tag">C</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">🧠</span>
+          <div class="skill-group-title">AI / ML</div>
+          <div class="skill-tags"><span class="skill-tag">scikit-learn</span><span
+              class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span><span class="skill-tag">Hugging
+              Face</span><span class="skill-tag">Fine-Tuning</span><span class="skill-tag">NLTK</span><span
+              class="skill-tag">OpenCV</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">🤖</span>
+          <div class="skill-group-title">LLM & Agentic</div>
+          <div class="skill-tags"><span class="skill-tag">LangChain</span><span class="skill-tag">LangGraph</span><span
+              class="skill-tag">RAG</span><span class="skill-tag">Fine-Tuning</span><span class="skill-tag">Agentic
+              Systems</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">⚙️</span>
+          <div class="skill-group-title">Dev Tools & Infra</div>
+          <div class="skill-tags"><span class="skill-tag">Git</span><span class="skill-tag">Docker</span><span
+              class="skill-tag">FastAPI</span><span class="skill-tag">Flask</span><span
+              class="skill-tag">Streamlit</span><span class="skill-tag">Playwright</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">️📈</span>
+          <div class="skill-group-title">ML Domains</div>
+          <div class="skill-tags"><span class="skill-tag">NLP</span><span class="skill-tag">Computer Vision</span><span
+              class="skill-tag">Anomaly Detection</span><span class="skill-tag">Time-Series</span><span
+              class="skill-tag">LLM Apps</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">️📈</span>
+          <div class="skill-group-title">Data Analysis</div>
+          <div class="skill-tags"><span class="skill-tag">SQL</span><span class="skill-tag">Pandas</span><span
+              class="skill-tag">Numpy</span><span class="skill-tag">Matplotlib</span><span
+              class="skill-tag">Seaborn</span><span class="skill-tag">Plotly</span></div>
+        </div>
+        <div class="skill-group"><span class="skill-group-icon">🔬</span>
+          <div class="skill-group-title">Science & Math</div>
+          <div class="skill-tags"><span class="skill-tag">Numerical Methods</span><span class="skill-tag">ODE/PDE
+              Solving</span><span class="skill-tag">Statistical Modeling</span><span class="skill-tag">Perturbation
+              Theory</span></div>
+        </div>
+      </div>
+      <!-- <div class="skills-orbit">
+        <div class="orbit-container">
+          <div class="orbit-ring ring1"></div>
+          <div class="orbit-ring ring2"></div>
+          <div class="orbit-ring ring3"></div>
+          <div class="orbit-center">AI/ML<br>Stack</div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="page" id="page-projects">
+    <div class="projects-wrap">
+      <div class="projects-intro">
+        <div class="section-eyebrow">Work</div>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <div class="projects-list">
+
+        <div class="project-card" id="proj1" onclick="toggleProject('proj1')">
+          <div class="project-header">
+            <div class="project-header-left">
+              <span class="project-num">01</span>
+              <span class="project-name">Finsense — Agentic RAG Financial Assistant</span>
+              <div class="project-tags"><span class="project-tag">LLM Agent</span><span
+                  class="project-tag sage">RAG</span><span class="project-tag amber">Deployed</span></div>
+            </div>
+            <div class="project-toggle"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg></div>
+          </div>
+          <div class="project-body">
+            <div class="project-body-inner">
+              <div>
+                <div class="project-section-title">Overview</div>
+                <p class="project-desc">Built and publicly deployed an end-to-end agentic AI system for financial policy
+                  and savings schemes
+                  Q&A and live tax calculations. Combines document retrieval with browser automation in a single
+                  conversational interface.</p>
+              </div>
+              <div>
+                <div class="project-section-title">Details</div>
+                <ul class="project-bullets">
+                  <li>RAG-based document retrieval for financial policy Q&A with source grounding</li>
+                  <li>Browser-based tax computation via Playwright for real-time calculation</li>
+                  <li>LangChain tool-using agent for intelligent routing between both capabilities</li>
+                  <li>FastAPI REST-style backend with conversational memory and structured logging</li>
+                  <li>Publicly deployed on Streamlit Cloud</li>
+                </ul>
+              </div>
+              <div class="project-metrics">
+                <div class="metric-box">
+                  <div class="metric-val">2</div>
+                  <div class="metric-lbl">AI capabilities unified<br>in one agent</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val"><a href="https://finsense-ai.streamlit.app/" target="_blank">Live</a></div>
+                  <div class="metric-lbl">Deployed publicly<br>Streamlit Cloud**</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">RAG</div>
+                  <div class="metric-lbl">Document retrieval<br>with source grounding</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">REST</div>
+                  <div class="metric-lbl">FastAPI + conversational<br>memory backend</div>
+                </div>
+              </div>
+              <div class="project-tech-stack">
+                <div class="project-section-title" style="width:100%;margin-bottom:7px">Tech Stack</div><span
+                  class="tech-pill">Python</span><span class="tech-pill">LangChain</span><span
+                  class="tech-pill">RAG</span><span class="tech-pill">Playwright</span><span
+                  class="tech-pill">FastAPI</span><span class="tech-pill">Streamlit</span><span
+                  class="tech-pill">ChromaDB</span><span class="tech-pill">Conv. Memory</span><span
+                  class="tech-pill">Docker</span><span class="tech-pill"><a href="https://github.com/carma439/finsense"
+                    target="_blank">GitHub</a></span>
+              </div>
+              <img src="./resources/f_rag.png" alt="Finsense UI" style="width: 100%; height: auto; margin-top: 10px;">
+              <p class="plain_text" style="color: #999; margin-top: 10px;">**Note: Due to free tier limitations, the app
+                might be inactive. You can always run it locally using the Dockerfile provided in the <a
+                  href="https://github.com/carma439/finsense" target="_blank">GitHub</a> repository.
+                Or you can wake it up by clicking on the <a href="https://finsense-ai.streamlit.app/"
+                  target="_blank">streamlit</a> link and <a href="https://huggingface.co/space  s/chirags439/finsense"
+                  target="_blank">huggingface</a> link and wait for 30 seconds.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" id="proj2" onclick="toggleProject('proj2')">
+          <div class="project-header">
+            <div class="project-header-left">
+              <span class="project-num">02</span>
+              <span class="project-name">Context-Based Auto Anomaly Detection</span>
+              <div class="project-tags"><span class="project-tag">Unsupervised ML</span><span
+                  class="project-tag sage">Time-Series</span></div>
+            </div>
+            <div class="project-toggle"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg></div>
+          </div>
+          <div class="project-body">
+            <div class="project-body-inner">
+              <div>
+                <div class="project-section-title">Overview</div>
+                <p class="project-desc">Developed a fully unsupervised anomaly detection pipeline for Seaker Systems
+                  Pvt. Ltd. — analyzing multivariate maritime sensor data at industrial scale, replacing a manual
+                  cleaning workflow with an automated, high-performance system.</p>
+              </div>
+              <div>
+                <div class="project-section-title">Details</div>
+                <ul class="project-bullets">
+                  <li>End-to-end pipeline over 6 months of per minute resolution (~ 250,000 rows × 90 features) maritime
+                    sensor data</li>
+                  <li>Benchmarked Isolation Forest, LSTM Autoencoder, and Transformer Autoencoder with
+                    reconstruction-error anomaly scoring</li>
+                  <li>Reduced data load latency by 98% (2 min → under 2 sec) via Parquet optimization, facilitating
+                    rapid data exploration and reporting.</li>
+                  <li>Performed root-cause analysis to identify the top contributing features for detected anomalies,
+                    allowing technical and operations teams to prioritize maintenance based on quantitative evidence.
+                  </li>
+                </ul>
+              </div>
+              <div class="project-metrics">
+                <div class="metric-box">
+                  <div class="metric-val">98%</div>
+                  <div class="metric-lbl">Load time reduction<br>2 min → &lt;2 sec</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">250K</div>
+                  <div class="metric-lbl">Rows × 90 features<br>processed</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">3</div>
+                  <div class="metric-lbl">Models benchmarked<br>IF · LSTM · Transformer</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">Seaker</div>
+                  <div class="metric-lbl">Company guided project<br>Nov 2025 – Jan 2026</div>
+                </div>
+              </div>
+              <div class="project-tech-stack">
+                <div class="project-section-title" style="width:100%;margin-bottom:7px">Tech Stack</div><span
+                  class="tech-pill">Python</span><span class="tech-pill">PyTorch</span><span
+                  class="tech-pill">scikit-learn</span><span class="tech-pill">Isolation Forest</span><span
+                  class="tech-pill">LSTM Autoencoder</span><span class="tech-pill">Transformer Autoencoder</span><span
+                  class="tech-pill">Pyarrow</span><span class="tech-pill">Pandas</span><span
+                  class="tech-pill">Matplotlib</span><span class="tech-pill">Seaborn</span><span class="tech-pill"><a
+                    href="https://github.com/dai-anomaly/maritime_anomaly" target="_blank">GitHub</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" id="proj3" onclick="toggleProject('proj3')">
+          <div class="project-header">
+            <div class="project-header-left">
+              <span class="project-num">03</span>
+              <span class="project-name">Astronomical Filament Detection Analysis</span>
+              <div class="project-tags"><span class="project-tag">Data Analysis</span><span
+                  class="project-tag sage">Astrophysics</span><span class="project-tag amber">ISRO</span></div>
+            </div>
+            <div class="project-toggle"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg></div>
+          </div>
+          <div class="project-body">
+            <div class="project-body-inner">
+              <div>
+                <div class="project-section-title">Overview</div>
+                <p class="project-desc">Project Associate at Ahmedabad University with ISRO's Space Applications Centre.
+                  Comparative study of filament detection algorithms on astronomical datasets to identify which best
+                  detects interstellar filamentary structures from observational data. Our findings suggested that
+                  DisPerSE
+                  and FilFinder tend to be more generous in detecting filaments, while getSF tends to be more
+                  conservative and detects fewer, dominant filaments.
+                  On the quantitative side, we found that MSSIM (Mean Structural Similarity) index was not a good metric
+                  for comparing the performance of the algorithms
+                  as it did not behave as expected (<a
+                    href="https://iopscience.iop.org/article/10.3847/2041-8213/aa6e50" target="_blank">Green et al.
+                    2017</a>).
+                  We concluded that new metrics are needed to compare the performance of the algorithms in an unbiased,
+                  objective manner.
+                </p>
+              </div>
+              <div>
+                <div class="project-section-title">Details</div>
+                <ul class="project-bullets">
+                  <li>Analyzed FilFinder, getSF, and DisPerSE algorithms across multiple astronomical datasets</li>
+                  <li>Built a quantitative performance framework using the MSSIM index</li>
+                  <li>Evaluated robustness across varying signal-to-noise conditions</li>
+                  <li>Presented at SAMHITA-2025 conference at SAC, ISRO, Ahmedabad</li>
+                </ul>
+              </div>
+              <div class="project-metrics">
+                <div class="metric-box">
+                  <div class="metric-val">3</div>
+                  <div class="metric-lbl">Algorithms benchmarked<br>FilFinder · getSF · DisPerSE</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">MSSIM</div>
+                  <div class="metric-lbl">Structural similarity<br>performance metric</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">ISRO</div>
+                  <div class="metric-lbl">Presented at SAMHITA-2025<br>SAC, Ahmedabad</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">9 mo</div>
+                  <div class="metric-lbl">Oct 2024 – Jun 2025</div>
+                </div>
+              </div>
+              <div class="project-tech-stack">
+                <div class="project-section-title" style="width:100%;margin-bottom:7px">Tech Stack</div><span
+                  class="tech-pill">Python</span><span class="tech-pill">FilFinder</span><span
+                  class="tech-pill">getSF</span><span class="tech-pill">DisPerSE</span><span
+                  class="tech-pill">Astropy</span><span class="tech-pill">MSSIM</span><span
+                  class="tech-pill">Matplotlib</span><span class="tech-pill">FITS Data</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" id="proj4" onclick="toggleProject('proj4')">
+          <div class="project-header">
+            <div class="project-header-left">
+              <span class="project-num">04</span>
+              <span class="project-name">Numerical Modeling of Cosmological Perturbations</span>
+              <div class="project-tags"><span class="project-tag">Scientific Computing</span><span
+                  class="project-tag sage">Cosmology</span></div>
+            </div>
+            <div class="project-toggle"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg></div>
+          </div>
+          <div class="project-body">
+            <div class="project-body-inner">
+              <div>
+                <div class="project-section-title">Overview</div>
+                <p class="project-desc">Master's thesis at IISER Bhopal. Developed custom numerical solvers for the
+                  coupled PDEs arising in linear cosmological perturbation theory — the mathematical framework for
+                  understanding large-scale structure formation in the universe. A good reference is <a
+                    href="https://arxiv.org/abs/astro-ph/0606683" target="_blank">Callin 2006</a>.</p>
+              </div>
+              <div>
+                <div class="project-section-title">Details</div>
+                <ul class="project-bullets">
+                  <li>Solved full coupled PDE system from linear cosmological perturbation theory</li>
+                  <li>Implemented 4th-order Runge–Kutta (RK4) for time evolution (unstable!)</li>
+                  <li>Implemented adaptive RK5 with Cash–Karp parameters for improved stability</li>
+                  <li>Results interpreted in context of CMB anisotropies and structure formation</li>
+                </ul>
+              </div>
+              <div class="project-metrics">
+                <div class="metric-box">
+                  <div class="metric-val">RK4</div>
+                  <div class="metric-lbl">Classical 4th-order<br>integrator (custom)</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">RK5</div>
+                  <div class="metric-lbl">Adaptive Cash–Karp<br>integrator</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">IISER</div>
+                  <div class="metric-lbl">Master's thesis<br>Bhopal 2023–24</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-val">PDE</div>
+                  <div class="metric-lbl">Coupled differential<br>equation systems</div>
+                </div>
+              </div>
+              <div class="project-tech-stack">
+                <div class="project-section-title" style="width:100%;margin-bottom:7px">Tech Stack</div><span
+                  class="tech-pill">C</span><span class="tech-pill">Python</span><span class="tech-pill">NumPy /
+                  SciPy</span><span class="tech-pill">RK4
+                  (Custom)</span><span class="tech-pill">Adaptive RK5 Cash–Karp</span><span
+                  class="tech-pill">Matplotlib</span><span class="tech-pill">Gnuplot</span><span
+                  class="tech-pill">LaTeX</span>
+              </div>
+              <img src="./resources/c_phi.png"
+                alt="Evolution of gravitational potential as a function of scale factor for different k-modes."
+                style="width:96%;height:auto;border-radius:8px;margin-top:15px;">
+              <img src="./resources/c_power.png" alt="Linear matter power spectrum as a function of scales."
+                style="width:100%;height:auto;border-radius:8px;margin-top:15px;">
+              <br>
+              <p class="plain_text" style="margin-top:2px;  text-align: center;"> For a detailed
+                explanation of the above figures, please
+                refer to <a href="https://drive.google.com/file/d/15x2XUGBo8Amfk3Y924ce8RnFzGPeDvE6/view?usp=sharing"
+                  target="_blank">my thesis</a>.</p>
+              </div>  
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-name">Chirag Sharma</div>
+    <div class="foot-copy">© 2026 · Pune, India</div>
+  </footer>
+
+  <script>
+    /* CURSOR — using left/top instead of transform to avoid compound-transform conflict */
+    const dot = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = -200, my = -200, rx = -200, ry = -200;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    (function tick() {
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+      rx += (mx - rx) * 0.13;
+      ry += (my - ry) * 0.13;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(tick);
+    })();
+
+    /* THEME */
+    function toggleTheme() {
+      const h = document.documentElement;
+      h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('cs-theme', h.dataset.theme);
+    }
+    const saved = localStorage.getItem('cs-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
+
+    /* NAV */
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      document.getElementById('nav-' + id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    /* PROJECTS */
+    function toggleProject(id) {
+      const card = document.getElementById(id);
+      const was = card.classList.contains('open');
+      document.querySelectorAll('.project-card').forEach(c => c.classList.remove('open'));
+      if (!was) card.classList.add('open');
+    }
+
+    /* ORBIT */
+    const items = ['PyTorch', 'LangChain', 'FastAPI', 'sklearn', 'TF', 'RAG', 'Docker', 'NLTK', 'OpenCV'];
+    const cont = document.querySelector('.orbit-container');
+    if (cont) {
+      const radii = [80, 130, 165];
+      items.forEach((lbl, i) => {
+        const r = radii[i % 3];
+        const a = (i / items.length) * 2 * Math.PI;
+        const d = document.createElement('div');
+        d.className = 'orbit-dot';
+        d.textContent = lbl;
+        d.style.left = (170 + r * Math.cos(a) - 22) + 'px';
+        d.style.top = (170 + r * Math.sin(a) - 22) + 'px';
+        cont.appendChild(d);
+      });
+    }
+  </script>
+</body>
+
+</html>
