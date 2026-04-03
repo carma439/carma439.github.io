@@ -1145,8 +1145,8 @@
       <h1 class="hero-name">Chirag<br><span class="hero-name">Sharma</span></h1>
       <div class="hero-title">Physics postgraduate research -> Data Science & AI/ML</div>
       <p class="hero-summary">
+        I like building intelligent systems.
         PG Diploma in Artificial Intelligence from CDAC ACTS Pune and a BS-MS in Physics from IISER Bhopal.
-        I am a researcher at heart and I like building intelligent systems.
         Learning to use AI for real-world applications and solutions with a focus on data-driven decision making.
         Passionate about turning data and research into measurable product improvements.
       </p>
@@ -1250,10 +1250,10 @@
               <div class="tl-connector"></div>
             </div>
             <div class="tl-content">
-              <div class="tl-role">Finsense — Agentic RAG Financial Assistant</div>
+              <div class="tl-role">Finsense — AI Agent for Financial Queries & Tax Calculation</div>
               <div class="tl-org">Personal Project · Deployed on Streamlit</div>
-              <div class="tl-desc">End-to-end agentic AI for financial policy Q&A and live tax calculations. LangChain +
-                FastAPI + Playwright.</div>
+              <div class="tl-desc">Built a conversational AI agent that answers personal finance queries and performs Indian tax calculations
+                from natural language input, deployed live on Streamlit.</div>
             </div>
           </div>
           <div class="timeline-item">
@@ -1265,8 +1265,8 @@
             <div class="tl-content">
               <div class="tl-role">Anomaly Detection Pipeline</div>
               <div class="tl-org">Seaker Systems Pvt. Ltd. · PG-DAI Project</div>
-              <div class="tl-desc">Unsupervised anomaly detection over maritime sensor data (250K × 90 features).
-                Benchmarked IF, LSTM, and Transformer Autoencoder.</div>
+              <div class="tl-desc">Developed an end-to-end anomaly detection pipeline over ~23 million maritime AIS signals, replacing a
+                  static rule-based system with a dynamic, AI-driven workflow.</div>
             </div>
           </div>
           <div class="timeline-item">
@@ -1388,7 +1388,7 @@
           <div class="project-header">
             <div class="project-header-left">
               <span class="project-num">01</span>
-              <span class="project-name">Finsense — Agentic RAG Financial Assistant</span>
+              <span class="project-name">Finsense — AI Agent for Financial Queries & Tax Calculation</span>
               <div class="project-tags"><span class="project-tag">LLM Agent</span><span
                   class="project-tag sage">RAG</span><span class="project-tag amber">Deployed</span></div>
             </div>
@@ -1402,19 +1402,17 @@
             <div class="project-body-inner">
               <div>
                 <div class="project-section-title">Overview</div>
-                <p class="project-desc">Built and publicly deployed an end-to-end agentic AI system for financial policy
-                  and savings schemes
-                  Q&A and live tax calculations. Combines document retrieval with browser automation in a single
-                  conversational interface.</p>
+                <p class="project-desc">Built a conversational AI agent that answers personal finance queries and performs Indian tax calculations
+                    from natural language input, deployed live on Streamlit.</p>
               </div>
               <div>
                 <div class="project-section-title">Details</div>
                 <ul class="project-bullets">
-                  <li>RAG-based document retrieval for financial policy Q&A with source grounding</li>
-                  <li>Browser-based tax computation via Playwright for real-time calculation</li>
-                  <li>LangChain tool-using agent for intelligent routing between both capabilities</li>
-                  <li>FastAPI REST-style backend with conversational memory and structured logging</li>
-                  <li>Publicly deployed on Streamlit Cloud</li>
+                  <li>RAG-based document retrieval for financial policy Q&A with source grounding by using Indian Budget 2026 highlights and Post Office Savings
+                    scheme data as the knowledge base</li>
+                  <li>Browser-based tax computation via Playwright for real-time official calculation</li>
+                  <li>Used MiniLM-L6 (HuggingFace) for semantic embeddings and LLaMA-3.1-8B (GroqAPI) as the backbone LLM.</li>
+                  <li>Exposed functionality via a REST-style API with persistent conversational memory; orchestrated with LangChain and instrumented with Python logging for backend observability.</li>
                 </ul>
               </div>
               <div class="project-metrics">
@@ -1473,22 +1471,20 @@
             <div class="project-body-inner">
               <div>
                 <div class="project-section-title">Overview</div>
-                <p class="project-desc">Developed a fully unsupervised anomaly detection pipeline for Seaker Systems
-                  Pvt. Ltd. — analyzing multivariate maritime sensor data at industrial scale, replacing a manual
-                  cleaning workflow with an automated, high-performance system.</p>
+                <p class="project-desc">Developed an end-to-end anomaly detection pipeline over ~23 million maritime AIS signals, replacing a
+                      static rule-based system with a dynamic, AI-driven workflow.</p>
               </div>
               <div>
                 <div class="project-section-title">Details</div>
                 <ul class="project-bullets">
                   <li>End-to-end pipeline over 6 months of per minute resolution (~ 250,000 rows × 90 features) maritime
                     sensor data</li>
-                  <li>Benchmarked Isolation Forest, LSTM Autoencoder, and Transformer Autoencoder with
-                    reconstruction-error anomaly scoring</li>
-                  <li>Reduced data load latency by 98% (2 min → under 2 sec) via Parquet optimization, facilitating
-                    rapid data exploration and reporting.</li>
-                  <li>Performed root-cause analysis to identify the top contributing features for detected anomalies,
-                    allowing technical and operations teams to prioritize maintenance based on quantitative evidence.
-                  </li>
+                  <li>Implemented and benchmarked 3 Machine Learning and Deep Learning models — Isolation Forest, LSTM Autoencoder, and Transformer
+                      Autoencoder — using reconstruction-error-based anomaly scoring; enabling data-driven threshold tuning.</li>
+                  <li>Engineered root-cause analysis module to surface the top contributing features for each detected anomaly,
+                      giving operations teams quantitative evidence for prioritizing maintenance.</li>
+                  <li>Reduced data load latency by 98% (from ~2 min to under 2 sec) via Parquet-based optimization, enabling
+                    rapid exploratory analysis and real-time reporting.</li>
                 </ul>
               </div>
               <div class="project-metrics">
@@ -1558,10 +1554,12 @@
               <div>
                 <div class="project-section-title">Details</div>
                 <ul class="project-bullets">
-                  <li>Analyzed FilFinder, getSF, and DisPerSE algorithms across multiple astronomical datasets</li>
-                  <li>Built a quantitative performance framework using the MSSIM index</li>
-                  <li>Evaluated robustness across varying signal-to-noise conditions</li>
-                  <li>Presented at SAMHITA-2025 conference at SAC, ISRO, Ahmedabad</li>
+                  <li>Researched and benchmarked multiple interstellar filament detection algorithms (FilFinder, getSF, DisPerSE)
+                    across diverse astronomical datasets, contributing to pipeline selection for ISRO's imaging analysis
+                    workflows.</li>
+                  <li>Quantitatively evaluated algorithm performance using the MSSIM structural similarity index, enabling
+                    objective comparison across varied observational conditions.</li>
+                  <li>Presented research findings at the SAMHITA-2025 national conference hosted at SAC, ISRO, Ahmedabad</li>
                 </ul>
               </div>
               <div class="project-metrics">
